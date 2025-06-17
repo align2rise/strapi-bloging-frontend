@@ -1,0 +1,34 @@
+<app-header></app-header>
+<div class="blog-container">
+  <header class="blog-header">
+    <h1>Latest Insights</h1>
+    <p>Discover our latest articles and updates</p>
+  </header>
+
+  <div class="blog-list">
+    <div *ngFor="let blog of blogs" class="blog-card">
+      <!-- Added image section -->
+      <div class="blog-image" *ngIf="blog.Cover_Image && blog.Cover_Image[0]">
+        <img [src]="'http://localhost:1337' + (blog.Cover_Image[0].formats?.medium?.url || blog.Cover_Image[0].url)" 
+             [alt]="blog.Cover_Image[0].alternativeText || blog.Title"
+             class="blog-img">
+      </div>
+      
+      <div class="blog-card-header">
+        <h2 class="blog-title">{{ blog.Title }}</h2>
+        <div class="blog-meta">
+          <span class="blog-author">{{ blog.Author }}</span>
+          <span class="blog-date">{{ blog.publishe_Date | date:'mediumDate' }}</span>
+        </div>
+      </div>
+
+      <div class="blog-content">
+        <p>{{ getFirstParagraph(blog.Content) }}</p>
+      </div>
+
+      <div class="blog-footer">
+        <a [routerLink]="['/blog', blog.documentId]" class="read-more">Read more</a>
+      </div>
+    </div>
+  </div>
+</div>

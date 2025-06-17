@@ -1,0 +1,24 @@
+<app-header></app-header>
+<div class="blog-detail-container">
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+  
+    <article *ngIf="blog && !isLoading" class="blog-article">
+      <header class="blog-header">
+        <h1>{{ blog.Title }}</h1>
+        <div class="blog-meta">
+          <span class="author">{{ blog.Author }}</span>
+          <span class="date">{{ blog.publishe_Date | date:'mediumDate' }}</span>
+        </div>
+      </header>
+  
+      <div class="blog-content">
+        <div *ngFor="let block of formatContent(blog.Content)" class="content-block">
+          <p>{{ block.children[0].text }}</p>
+        </div>
+      </div>
+    </article>
+  </div>

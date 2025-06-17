@@ -1,0 +1,43 @@
+
+<app-header></app-header>
+<div class="articles-container">
+  <h1>Latest Articles</h1>
+  
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    Loading articles...
+  </div>
+  
+  <div *ngIf="!isLoading && articles.length === 0" class="no-articles">
+    No articles found.
+  </div>
+
+  <div class="articles-grid">
+    <div *ngFor="let article of articles" class="article-card">
+      <!-- Updated image section with proper URL construction -->
+      <div class="article-image" *ngIf="article.image && article.image[0]">
+        <img [src]="'http://localhost:1337' + (article.image[0].formats?.medium?.url || article.image[0].url)" 
+             [alt]="article.image[0].alternativeText || article.title"
+             class="article-img">
+      </div>
+      
+      <div class="article-header">
+        <h2>{{ article.title }}</h2>
+        <div class="article-meta">
+          <span class="category">{{ article.category }}</span>
+          <span class="date">{{ formatDate(article.publishedAt) }}</span>
+        </div>
+      </div>
+      
+      <div class="article-description">
+        {{ getFirstParagraph(article.content) }}
+      </div>
+      
+      <div class="article-footer">
+        <a [routerLink]="['/articles', article.documentId]" class="article-link">
+          Read More
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="events-container">
+    <h1>Upcoming Events</h1>
+    
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      Loading events...
+    </div>
+    
+    <div *ngIf="!isLoading && events.length === 0" class="no-events">
+      No upcoming events scheduled.
+    </div>
+  
+    <div class="events-grid">
+      <div *ngFor="let event of events" class="event-card">
+        <!-- Event Image -->
+        <div class="event-image" *ngIf="event.bannerImage && event.bannerImage.length > 0">
+          <img [src]="'http://localhost:1337' + event.bannerImage[0].url"
+               [alt]="event.bannerImage[0].alternativeText || event.title"
+               [title]="event.bannerImage[0].caption || event.title">
+        </div>
+        
+        <div class="event-header">
+          <h2>{{ event.title }}</h2>
+          <div class="event-meta">
+            <span class="date">{{ formatDate(event.DateTime) }}</span>
+            <span class="location">{{ event.location }}</span>
+          </div>
+        </div>
+        
+        <div class="event-description">
+          {{ event.description | truncate: 150 }}
+        </div>
+        
+        <div class="event-footer">
+          <a [routerLink]="['/events', event.documentId]" class="event-link">
+            View Details
+          </a>
+        </div>
+      </div>
+    </div>
+</div>

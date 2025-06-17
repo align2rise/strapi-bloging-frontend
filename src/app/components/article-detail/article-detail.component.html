@@ -1,0 +1,30 @@
+<app-header></app-header>
+
+<div class="article-detail-container">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      Loading article...
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <a routerLink="/articles" class="back-link">Back to all articles</a>
+    </div>
+  
+    <div *ngIf="article && !isLoading" class="article-detail">
+      <button routerLink="/articles" class="back-button">← Back to Articles</button>
+      
+      <h1>{{ article.title }}</h1>
+      
+      <div class="article-meta">
+        <span class="category">{{ article.category }}</span>
+        <span class="date">{{ formatDate(article.publishedAt) }}</span>
+      </div>
+      
+      <div class="article-content">
+        <p *ngFor="let paragraph of formatContent(article.content)" class="content-paragraph">
+          {{ paragraph }}
+        </p>
+      </div>
+    </div>
+  </div>

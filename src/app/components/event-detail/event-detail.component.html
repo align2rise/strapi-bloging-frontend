@@ -1,0 +1,35 @@
+<app-header></app-header>
+
+<div class="event-detail-container">
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    Loading event details...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <a routerLink="/events" class="back-link">Back to all events</a>
+  </div>
+
+  <div *ngIf="event && !isLoading" class="event-detail">
+    <button routerLink="/events" class="back-button">← Back to Events</button>
+    
+    <h1>{{ event.title }}</h1>
+    
+    <div class="event-meta">
+      <div class="meta-item">
+        <span class="label">When:</span>
+        <span class="value">{{ formatDate(event.DateTime) }}</span>
+      </div>
+      
+      <div class="meta-item">
+        <span class="label">Where:</span>
+        <span class="value">{{ event.location }}</span>
+      </div>
+    </div>
+    
+    <div class="event-description">
+      <p>{{ event.description }}</p>
+    </div>
+  </div>
+</div>
